@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Spider-Man | Web of Heroes</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="https://i.pinimg.com/1200x/bc/ae/a4/bcaea48932509f7d4813b0d3636cee7d.jpg"
+    />
+
+    <style>
+      body {
+        font-family: "Roboto", sans-serif;
+        background: #0a0a0a;
+        color: white;
+      }
+      .hero-title {
+        font-family: "Orbitron", sans-serif;
+      }
+      .spidey-glow {
+        box-shadow: 0 0 30px rgba(229, 9, 20, 0.6);
+      }
+      .text-glow {
+        text-shadow: 0 0 10px rgba(229, 9, 20, 0.7);
+      }
+      .web-background {
+        background-image: radial-gradient(
+            circle at 25% 25%,
+            rgba(229, 9, 20, 0.1) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 75% 75%,
+            rgba(229, 9, 20, 0.1) 0%,
+            transparent 50%
+          );
+        background-size: 400px 400px;
+      }
+      .form-container {
+        backdrop-filter: blur(10px);
+        background: rgba(15, 15, 15, 0.8);
+      }
+      .tab-active {
+        background: rgba(229, 9, 20, 0.2);
+        border-bottom: 3px solid #e50914;
+      }
+      .spidey-icon {
+        transition: transform 0.3s ease;
+      }
+      .spidey-icon:hover {
+        transform: scale(1.1);
+      }
+      .carousel-container {
+        position: relative;
+        overflow: hidden;
+        border-radius: 12px;
+      }
+      .carousel-slide {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        transition: opacity 1s ease-in-out;
+      }
+      .carousel-slide.active {
+        opacity: 1;
+      }
+      .carousel-indicators {
+        position: absolute;
+        bottom: 20px;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+      }
+      .carousel-indicator {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.5);
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+      .carousel-indicator.active {
+        background-color: #e50914;
+      }
+      .carousel-nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: rgba(0, 0, 0, 0.5);
+        color: white;
+        border: none;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+      .carousel-nav:hover {
+        background-color: rgba(229, 9, 20, 0.7);
+      }
+      .carousel-prev {
+        left: 15px;
+      }
+      .carousel-next {
+        right: 15px;
+      }
+      .hidden {
+        display: none !important;
+      }
+    </style>
+  </head>
+  <body class="web-background min-h-screen text-white overflow-x-hidden">
+    <!-- Navigation -->
+    <nav class="flex justify-between items-center p-6 md:px-12">
+      <div class="flex items-center space-x-3">
+        <img
+          src="https://i.pinimg.com/1200x/bc/ae/a4/bcaea48932509f7d4813b0d3636cee7d.jpg"
+          alt="Spider-Man Icon"
+          class="spidey-icon w-10 h-10 rounded-full object-cover border-2 border-red-600"
+        />
+        <span class="hero-title text-xl font-bold">SPIDER-MAN</span>
+      </div>
+      <div class="hidden md:flex space-x-8">
+        <a href="#" class="hover:text-red-500 transition-colors">Home</a>
+        <a href="#" class="hover:text-red-500 transition-colors">Story</a>
+        <a href="#" class="hover:text-red-500 transition-colors">Gallery</a>
+        <a href="#" class="hover:text-red-500 transition-colors">Villains</a>
+        <a href="#" class="hover:text-red-500 transition-colors">Contact</a>
+      </div>
+      <button class="md:hidden text-white">
+        <i class="fas fa-bars text-xl"></i>
+      </button>
+    </nav>
+
+    <!-- Hero Section -->
+    <section
+      class="flex flex-col lg:flex-row items-center justify-between px-6 md:px-12 py-12 md:py-16"
+    >
+      <div class="lg:w-1/2 mb-12 lg:mb-0">
+        <h1 class="hero-title text-4xl md:text-6xl font-bold mb-6">
+          YOUR FRIENDLY NEIGHBORHOOD
+          <span class="text-red-600 text-glow">SPIDER-MAN</span>
+        </h1>
+        <p class="text-gray-300 text-lg mb-8 max-w-lg">
+          With great power comes great responsibility. Join the Spider-Verse and
+          become part of our hero community.
+        </p>
+
+        <!-- Authentication Tabs -->
+        <div class="max-w-md">
+          <div class="flex border-b border-gray-700 mb-6">
+            <button id="login-tab" class="py-3 px-6 font-medium tab-active">
+              Login
+            </button>
+            <button
+              id="register-tab"
+              class="py-3 px-6 font-medium text-gray-400 hover:text-white transition-colors"
+            >
+              Register
+            </button>
+          </div>
+
+          <!-- Login Form -->
+          <form
+            id="login-form"
+            class="form-container p-6 rounded-xl border border-gray-800"
+          >
+            <div class="mb-4">
+              <label for="login-email" class="block text-gray-300 mb-2"
+                >Email</label
+              >
+              <input
+                type="email"
+                id="login-email"
+                class="w-full px-4 py-3 bg-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600 text-white"
+                placeholder="peter.parker@dailybugle.com"
+                required
+              />
+            </div>
+            <div class="mb-6">
+              <label for="login-password" class="block text-gray-300 mb-2"
+                >Password</label
+              >
+              <input
+                type="password"
+                id="login-password"
+                class="w-full px-4 py-3 bg-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600 text-white"
+                placeholder="••••••••"
+                required
+              />
+            </div>
+            <div class="flex items-center justify-between mb-4">
+              <div class="flex items-center">
+                <input
+                  type="checkbox"
+                  id="remember"
+                  class="w-4 h-4 text-red-600 bg-gray-900 border-gray-700 rounded focus:ring-red-600"
+                />
+                <label for="remember" class="ml-2 text-sm text-gray-400"
+                  >Remember me</label
+                >
+              </div>
+              <a
+                href="#"
+                class="text-sm text-red-500 hover:text-red-400 transition-colors"
+                >Forgot password?</a
+              >
+            </div>
+            <button
+              type="submit"
+              class="w-full bg-red-600 hover:bg-red-700 text-white py-3 rounded-lg font-bold transition-colors mb-4"
+            >
+              SIGN IN
+            </button>
+            <div class="text-center text-sm text-gray-400">
+              Don't have an account?
+              <a
+                href="#"
+                id="switch-to-register"
+                class="text-red-500 hover:text-red-400 transition-colors"
+                >Register now</a
+              >
+            </div>
+          </form>
+
+          <!-- Register Form -->
+          <form
+            id="register-form"
+            class="form-container p-6 rounded-xl border border-gray-800 hidden"
+          >
+            <div class="mb-4">
+              <label for="register-username" class="block text-gray-300 mb-2"
+                >Username</label
+              >
+              <input
+                type="text"
+                id="register-username"
+                class="w-full px-4 py-3 bg-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600 text-white"
+                placeholder="SpideyFan123"
+                required
+              />
+            </div>
+            <div class="mb-4">
+              <label for="register-email" class="block text-gray-300 mb-2"
+                >Email</label
+              >
+              <input
+                type="email"
+                id="register-email"
+                class="w-full px-4 py-3 bg-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600 text-white"
+                placeholder="peter.parker@dailybugle.com"
+                required
+              />
+            </div>
+            <div class="mb-4">
+              <label for="register-password" class="block text-gray-300 mb-2"
+                >Password</label
+              >
+              <input
+                type="password"
+                id="register-password"
+                class="w-full px-4 py-3 bg-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600 text-white"
+                placeholder="••••••••"
+                required
+              />
+            </div>
+            <div class="mb-4">
+              <label for="register-confirm" class="block text-gray-300 mb-2"
+                >Confirm Password</label
+              >
+              <input
+                type="password"
+                id="register-confirm"
+                class="w-full px-4 py-3 bg-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600 text-white"
+                placeholder="••••••••"
+                required
+              />
+            </div>
+            <!-- Role Selection Field -->
+            <div class="mb-4">
+              <label for="register-role" class="block text-gray-300 mb-2"
+                >Choose Your Role</label
+              >
+              <select
+                id="register-role"
+                class="w-full px-4 py-3 bg-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600 text-white"
+                required
+              >
+                <option value="" disabled selected>Select your role</option>
+                <option value="user">Hero Fan - Regular User</option>
+                <option value="admin">Spider-Admin - Administrator</option>
+              </select>
+              <p class="text-xs text-gray-500 mt-1">
+                Choose "Spider-Admin" only if you have administrator privileges
+              </p>
+            </div>
+            <div class="flex items-center mb-4">
+              <input
+                type="checkbox"
+                id="terms"
+                class="w-4 h-4 text-red-600 bg-gray-900 border-gray-700 rounded focus:ring-red-600"
+                required
+              />
+              <label for="terms" class="ml-2 text-sm text-gray-400"
+                >I agree to the
+                <a
+                  href="#"
+                  class="text-red-500 hover:text-red-400 transition-colors"
+                  >Terms & Conditions</a
+                ></label
+              >
+            </div>
+            <button
+              type="submit"
+              class="w-full bg-red-600 hover:bg-red-700 text-white py-3 rounded-lg font-bold transition-colors mb-4"
+            >
+              CREATE ACCOUNT
+            </button>
+            <div class="text-center text-sm text-gray-400">
+              Already have an account?
+              <a
+                href="#"
+                id="switch-to-login"
+                class="text-red-500 hover:text-red-400 transition-colors"
+                >Sign in</a
+              >
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Carousel Section -->
+      <div class="lg:w-1/2 flex justify-center">
+        <div
+          class="carousel-container w-full max-w-md md:max-w-lg h-96 md:h-[500px] relative rounded-xl overflow-hidden spidey-glow"
+        >
+          <!-- Carousel Slides -->
+          <div class="carousel-slide active">
+            <img
+              src="https://i.pinimg.com/1200x/1e/1e/ac/1e1eac52a35735d5032c5ae6b6209b26.jpg"
+              alt="Spider-Man 1"
+              class="w-full h-full object-cover"
+            />
+          </div>
+          <div class="carousel-slide">
+            <img
+              src="https://i.pinimg.com/1200x/54/ae/8d/54ae8d89c1f85267ae421398127f8a34.jpg"
+              alt="Spider-Man 2"
+              class="w-full h-full object-cover"
+            />
+          </div>
+          <div class="carousel-slide">
+            <img
+              src="https://i.pinimg.com/736x/ca/51/5a/ca515ad91bd71da90e1ac238ed1befc1.jpg"
+              alt="Spider-Man 3"
+              class="w-full h-full object-cover"
+            />
+          </div>
+          <div class="carousel-slide">
+            <img
+              src="https://i.pinimg.com/1200x/51/00/d6/5100d6e4deddb026c2e4c0bfc0aef8a9.jpg"
+              alt="Spider-Man 4"
+              class="w-full h-full object-cover"
+            />
+          </div>
+
+          <!-- Navigation Buttons -->
+          <button class="carousel-nav carousel-prev">
+            <i class="fas fa-chevron-left"></i>
+          </button>
+          <button class="carousel-nav carousel-next">
+            <i class="fas fa-chevron-right"></i>
+          </button>
+
+          <!-- Indicators -->
+          <div class="carousel-indicators">
+            <div class="carousel-indicator active" data-index="0"></div>
+            <div class="carousel-indicator" data-index="1"></div>
+            <div class="carousel-indicator" data-index="2"></div>
+            <div class="carousel-indicator" data-index="3"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-16 px-6 md:px-12">
+      <h2 class="hero-title text-3xl md:text-4xl font-bold text-center mb-16">
+        SPIDER-ABILITIES
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div
+          class="bg-gray-900 p-6 rounded-xl border border-gray-800 hover:border-red-600 transition-all transform hover:-translate-y-2"
+        >
+          <div
+            class="w-12 h-12 bg-red-600 rounded-lg flex items-center justify-center mb-4"
+          >
+            <i class="fas fa-running text-white"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-2">Wall-Crawling</h3>
+          <p class="text-gray-400">
+            Ability to adhere to solid surfaces, allowing Spider-Man to scale
+            walls and ceilings.
+          </p>
+        </div>
+        <div
+          class="bg-gray-900 p-6 rounded-xl border border-gray-800 hover:border-red-600 transition-all transform hover:-translate-y-2"
+        >
+          <div
+            class="w-12 h-12 bg-red-600 rounded-lg flex items-center justify-center mb-4"
+          >
+            <i class="fas fa-spider text-white"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-2">Web-Slinging</h3>
+          <p class="text-gray-400">
+            Uses web-shooters to swing between buildings and create various
+            web-based tools.
+          </p>
+        </div>
+        <div
+          class="bg-gray-900 p-6 rounded-xl border border-gray-800 hover:border-red-600 transition-all transform hover:-translate-y-2"
+        >
+          <div
+            class="w-12 h-12 bg-red-600 rounded-lg flex items-center justify-center mb-4"
+          >
+            <i class="fas fa-eye text-white"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-2">Spider-Sense</h3>
+          <p class="text-gray-400">
+            Precognitive ability that alerts him to potential danger, giving him
+            lightning-fast reflexes.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-gray-800 py-8 px-6 md:px-12">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <div class="flex items-center space-x-3 mb-4 md:mb-0">
+          <img
+            src="https://i.pinimg.com/1200x/bc/ae/a4/bcaea48932509f7d4813b0d3636cee7d.jpg"
+            alt="Spider-Man Icon"
+            class="w-8 h-8 rounded-full object-cover border border-red-600"
+          />
+          <span class="hero-title font-bold">SPIDER-MAN</span>
+        </div>
+        <div class="flex space-x-6">
+          <a href="#" class="text-gray-400 hover:text-white transition-colors">
+            <i class="fab fa-twitter text-xl"></i>
+          </a>
+          <a href="#" class="text-gray-400 hover:text-white transition-colors">
+            <i class="fab fa-instagram text-xl"></i>
+          </a>
+          <a href="#" class="text-gray-400 hover:text-white transition-colors">
+            <i class="fab fa-linkedin text-xl"></i>
+          </a>
+        </div>
+      </div>
+      <div class="text-center text-gray-500 text-sm mt-6">
+        <p>
+          &copy; 2023 Spider-Man. All rights reserved. With great power comes
+          great responsibility.
+        </p>
+      </div>
+    </footer>
+
+    <!-- JavaScript Files -->
+    <script src="/app.js"></script>
+  </body>
+</html>

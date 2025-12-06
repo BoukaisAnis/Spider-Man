@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Spider-Man | Profile</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="https://i.pinimg.com/1200x/bc/ae/a4/bcaea48932509f7d4813b0d3636cee7d.jpg"
+    />
+
+    <style>
+      body {
+        font-family: "Roboto", sans-serif;
+        background: linear-gradient(
+          135deg,
+          #0a0a0a 0%,
+          #1a1a2e 50%,
+          #16213e 100%
+        );
+        color: white;
+        min-height: 100vh;
+      }
+      .hero-title {
+        font-family: "Orbitron", sans-serif;
+      }
+      .profile-card {
+        background: rgba(20, 20, 20, 0.8);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(229, 9, 20, 0.3);
+      }
+      .form-input {
+        background: rgba(30, 30, 30, 0.9);
+        border: 1px solid rgba(229, 9, 20, 0.2);
+        color: white;
+      }
+      .form-input:focus {
+        border-color: #e50914;
+        box-shadow: 0 0 10px rgba(229, 9, 20, 0.3);
+      }
+      .profile-avatar {
+        width: 120px;
+        height: 120px;
+        background: linear-gradient(135deg, #e50914 0%, #ff4757 100%);
+        border: 3px solid #e50914;
+        box-shadow: 0 0 30px rgba(229, 9, 20, 0.6);
+      }
+      .stat-badge {
+        background: linear-gradient(
+          135deg,
+          rgba(229, 9, 20, 0.1) 0%,
+          rgba(20, 20, 20, 0.8) 100%
+        );
+        border: 1px solid rgba(229, 9, 20, 0.3);
+      }
+      .btn-primary {
+        background: #e50914;
+        transition: all 0.3s ease;
+      }
+      .btn-primary:hover {
+        background: #c20812;
+        box-shadow: 0 0 20px rgba(229, 9, 20, 0.5);
+      }
+      .btn-secondary {
+        background: rgba(229, 9, 20, 0.1);
+        border: 1px solid rgba(229, 9, 20, 0.3);
+        transition: all 0.3s ease;
+      }
+      .btn-secondary:hover {
+        background: rgba(229, 9, 20, 0.2);
+        border-color: rgba(229, 9, 20, 0.6);
+      }
+    </style>
+  </head>
+  <body class="min-h-screen">
+    <!-- Navigation -->
+    <nav class="bg-gray-800 border-b border-gray-700 p-4">
+      <div class="container mx-auto flex justify-between items-center">
+        <div class="flex items-center space-x-3">
+          <img
+            src="https://i.pinimg.com/1200x/bc/ae/a4/bcaea48932509f7d4813b0d3636cee7d.jpg"
+            alt="Spider-Man"
+            class="w-10 h-10 rounded-full border-2 border-red-600"
+          />
+          <span class="hero-title text-xl font-bold">Spider-Shop</span>
+        </div>
+        <div class="flex items-center space-x-4">
+          <a
+            href="/dashboard.html"
+            class="hover:text-red-500 transition-colors"
+          >
+            <i class="fas fa-tachometer-alt mr-2"></i>Dashboard
+          </a>
+          <a href="/shop.html" class="hover:text-red-500 transition-colors">
+            <i class="fas fa-store mr-2"></i>Shop
+          </a>
+          <a href="/cart.html" class="hover:text-red-500 transition-colors">
+            <i class="fas fa-shopping-cart mr-2"></i>Cart
+          </a>
+          <a href="/profile.html" class="text-red-500">
+            <i class="fas fa-user mr-2"></i>Profile
+          </a>
+          <button
+            onclick="logout()"
+            class="bg-red-600 hover:bg-red-700 px-4 py-2 rounded transition-colors"
+          >
+            <i class="fas fa-sign-out-alt mr-2"></i>Logout
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Profile Content -->
+    <div class="container mx-auto px-4 py-8">
+      <h1 class="text-4xl font-bold text-center mb-2 hero-title">
+        YOUR <span class="text-red-500">PROFILE</span>
+      </h1>
+      <p class="text-gray-400 text-center mb-8">
+        Manage your account information and preferences
+      </p>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Profile Info -->
+        <div class="lg:col-span-2">
+          <div class="profile-card rounded-lg p-8">
+            <!-- Profile Header -->
+            <div
+              class="flex items-center space-x-6 mb-8 pb-8 border-b border-gray-700"
+            >
+              <div
+                class="profile-avatar rounded-full flex items-center justify-center flex-shrink-0"
+              >
+                <span id="avatarInitial" class="text-4xl font-bold">SP</span>
+              </div>
+              <div class="flex-1">
+                <h2 id="profileName" class="text-3xl font-bold mb-2">
+                  Spider-Man
+                </h2>
+                <p id="profileEmail" class="text-gray-400 mb-2">
+                  user@example.com
+                </p>
+                <span
+                  id="profileRole"
+                  class="inline-block px-3 py-1 bg-red-600 rounded-full text-sm font-semibold"
+                  >User</span
+                >
+              </div>
+            </div>
+
+            <!-- Profile Forms -->
+            <div class="space-y-6">
+              <!-- Personal Information Section -->
+              <div>
+                <h3 class="text-xl font-bold mb-4 flex items-center">
+                  <i class="fas fa-user-edit text-red-500 mr-2"></i>
+                  Personal Information
+                </h3>
+                <form id="personalForm" class="space-y-4">
+                  <div class="grid grid-cols-2 gap-4">
+                    <div>
+                      <label class="block text-sm font-semibold mb-2"
+                        >Username</label
+                      >
+                      <input
+                        type="text"
+                        id="username"
+                        class="form-input w-full px-4 py-2 rounded-lg"
+                        placeholder="Username"
+                      />
+                    </div>
+                    <div>
+                      <label class="block text-sm font-semibold mb-2"
+                        >Email</label
+                      >
+                      <input
+                        type="email"
+                        id="email"
+                        class="form-input w-full px-4 py-2 rounded-lg"
+                        placeholder="Email"
+                        readonly
+                      />
+                    </div>
+                  </div>
+                  <button
+                    type="submit"
+                    class="btn-primary text-white px-6 py-2 rounded-lg font-semibold hover:shadow-lg"
+                  >
+                    <i class="fas fa-save mr-2"></i>Save Changes
+                  </button>
+                </form>
+              </div>
+
+              <!-- Security Section -->
+              <div class="pt-6 border-t border-gray-700">
+                <h3 class="text-xl font-bold mb-4 flex items-center">
+                  <i class="fas fa-lock text-red-500 mr-2"></i>
+                  Security
+                </h3>
+                <form id="securityForm" class="space-y-4">
+                  <div>
+                    <label class="block text-sm font-semibold mb-2"
+                      >Current Password</label
+                    >
+                    <input
+                      type="password"
+                      id="currentPassword"
+                      class="form-input w-full px-4 py-2 rounded-lg"
+                      placeholder="Current password"
+                    />
+                  </div>
+                  <div class="grid grid-cols-2 gap-4">
+                    <div>
+                      <label class="block text-sm font-semibold mb-2"
+                        >New Password</label
+                      >
+                      <input
+                        type="password"
+                        id="newPassword"
+                        class="form-input w-full px-4 py-2 rounded-lg"
+                        placeholder="New password"
+                      />
+                    </div>
+                    <div>
+                      <label class="block text-sm font-semibold mb-2"
+                        >Confirm Password</label
+                      >
+                      <input
+                        type="password"
+                        id="confirmPassword"
+                        class="form-input w-full px-4 py-2 rounded-lg"
+                        placeholder="Confirm password"
+                      />
+                    </div>
+                  </div>
+                  <button
+                    type="submit"
+                    class="btn-primary text-white px-6 py-2 rounded-lg font-semibold hover:shadow-lg"
+                  >
+                    <i class="fas fa-key mr-2"></i>Update Password
+                  </button>
+                </form>
+              </div>
+
+              <!-- Preferences Section -->
+              <div class="pt-6 border-t border-gray-700">
+                <h3 class="text-xl font-bold mb-4 flex items-center">
+                  <i class="fas fa-cog text-red-500 mr-2"></i>
+                  Preferences
+                </h3>
+                <div class="space-y-4">
+                  <div
+                    class="flex items-center justify-between p-3 bg-gray-800 rounded-lg"
+                  >
+                    <div>
+                      <p class="font-semibold">Email Notifications</p>
+                      <p class="text-sm text-gray-400">
+                        Receive order updates via email
+                      </p>
+                    </div>
+                    <input
+                      type="checkbox"
+                      id="emailNotif"
+                      class="w-5 h-5 cursor-pointer"
+                      checked
+                    />
+                  </div>
+                  <div
+                    class="flex items-center justify-between p-3 bg-gray-800 rounded-lg"
+                  >
+                    <div>
+                      <p class="font-semibold">Newsletter</p>
+                      <p class="text-sm text-gray-400">
+                        Subscribe to our newsletter
+                      </p>
+                    </div>
+                    <input
+                      type="checkbox"
+                      id="newsletter"
+                      class="w-5 h-5 cursor-pointer"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Profile Sidebar -->
+        <div class="lg:col-span-1">
+          <!-- Account Stats -->
+          <div class="profile-card rounded-lg p-6 mb-6">
+            <h3 class="text-xl font-bold mb-4 flex items-center">
+              <i class="fas fa-chart-bar text-red-500 mr-2"></i>
+              Account Stats
+            </h3>
+            <div class="space-y-4">
+              <div class="stat-badge rounded-lg p-4 text-center">
+                <div class="text-2xl font-bold text-red-500" id="totalOrders">
+                  0
+                </div>
+                <p class="text-sm text-gray-400">Total Orders</p>
+              </div>
+              <div class="stat-badge rounded-lg p-4 text-center">
+                <div class="text-2xl font-bold text-red-500" id="totalSpent">
+                  $0.00
+                </div>
+                <p class="text-sm text-gray-400">Total Spent</p>
+              </div>
+              <div class="stat-badge rounded-lg p-4 text-center">
+                <div class="text-2xl font-bold text-red-500" id="memberSince">
+                  Nov 2025
+                </div>
+                <p class="text-sm text-gray-400">Member Since</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Actions -->
+          <div class="profile-card rounded-lg p-6 mb-6">
+            <h3 class="text-xl font-bold mb-4 flex items-center">
+              <i class="fas fa-bolt text-red-500 mr-2"></i>
+              Quick Actions
+            </h3>
+            <div class="space-y-2">
+              <button
+                onclick="window.location.href='/dashboard.html'"
+                class="btn-secondary w-full text-white px-4 py-2 rounded-lg transition-all"
+              >
+                <i class="fas fa-history mr-2"></i>Order History
+              </button>
+              <button
+                onclick="window.location.href='/cart.html'"
+                class="btn-secondary w-full text-white px-4 py-2 rounded-lg transition-all"
+              >
+                <i class="fas fa-shopping-cart mr-2"></i>View Cart
+              </button>
+              <button
+                onclick="window.location.href='/shop.html'"
+                class="btn-secondary w-full text-white px-4 py-2 rounded-lg transition-all"
+              >
+                <i class="fas fa-store mr-2"></i>Continue Shopping
+              </button>
+            </div>
+          </div>
+
+          <!-- Danger Zone -->
+          <div class="profile-card rounded-lg p-6 border-red-600">
+            <h3 class="text-xl font-bold mb-4 flex items-center text-red-500">
+              <i class="fas fa-exclamation-triangle mr-2"></i>
+              Danger Zone
+            </h3>
+            <button
+              onclick="deleteAccount()"
+              class="w-full bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition-colors"
+            >
+              <i class="fas fa-trash-alt mr-2"></i>Delete Account
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const API_BASE_URL = "/api/v1";
+
+      // Check authentication
+      function checkAuth() {
+        const user = localStorage.getItem("user");
+        const token = localStorage.getItem("token");
+
+        if (!user || !token) {
+          window.location.href = "/";
+          return null;
+        }
+
+        try {
+          const userData = JSON.parse(user);
+          return { userData, token };
+        } catch (error) {
+          console.error("Error parsing user data:", error);
+          logout();
+          return null;
+        }
+      }
+
+      // Load profile
+      async function loadProfile() {
+        const auth = checkAuth();
+        if (!auth) return;
+
+        try {
+          const userData = auth.userData;
+
+          // Update profile display
+          document.getElementById("profileName").textContent =
+            userData.username || "User";
+          document.getElementById("profileEmail").textContent = userData.email;
+          document.getElementById("profileRole").textContent =
+            (userData.role || "user").charAt(0).toUpperCase() +
+            (userData.role || "user").slice(1);
+
+          // Update avatar initial
+          const initial = (userData.username || userData.email)
+            .charAt(0)
+            .toUpperCase();
+          document.getElementById("avatarInitial").textContent = initial + "P";
+
+          // Populate form fields
+          document.getElementById("username").value = userData.username || "";
+          document.getElementById("email").value = userData.email || "";
+
+          // Update member since
+          const createdDate = new Date(userData.createdAt);
+          const options = { year: "numeric", month: "short" };
+          document.getElementById("memberSince").textContent =
+            createdDate.toLocaleDateString("en-US", options);
+
+          // Load stats
+          await loadStats();
+        } catch (error) {
+          console.error("Error loading profile:", error);
+          showNotification("Error loading profile", "error");
+        }
+      }
+
+      // Load user statistics
+      async function loadStats() {
+        const auth = checkAuth();
+        if (!auth) return;
+
+        try {
+          // This would call your backend to get order stats
+          // For now, showing placeholder functionality
+          document.getElementById("totalOrders").textContent = "0";
+          document.getElementById("totalSpent").textContent = "$0.00";
+        } catch (error) {
+          console.error("Error loading stats:", error);
+        }
+      }
+
+      // Update personal information
+      document
+        .getElementById("personalForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          const auth = checkAuth();
+          if (!auth) return;
+
+          const username = document.getElementById("username").value;
+
+          if (!username.trim()) {
+            showNotification("Username cannot be empty", "error");
+            return;
+          }
+
+          try {
+            const response = await fetch(`${API_BASE_URL}/user/profile`, {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+                "x-auth-token": auth.token,
+              },
+              body: JSON.stringify({ username }),
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+              // Update localStorage
+              const updatedUser = { ...auth.userData, username };
+              localStorage.setItem("user", JSON.stringify(updatedUser));
+              showNotification("Profile updated successfully", "success");
+              loadProfile();
+            } else {
+              showNotification("Error: " + data.message, "error");
+            }
+          } catch (error) {
+            console.error("Error updating profile:", error);
+            showNotification("Error updating profile", "error");
+          }
+        });
+
+      // Update password
+      document
+        .getElementById("securityForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          const auth = checkAuth();
+          if (!auth) return;
+
+          const currentPassword =
+            document.getElementById("currentPassword").value;
+          const newPassword = document.getElementById("newPassword").value;
+          const confirmPassword =
+            document.getElementById("confirmPassword").value;
+
+          if (!currentPassword || !newPassword || !confirmPassword) {
+            showNotification("All password fields are required", "error");
+            return;
+          }
+
+          if (newPassword !== confirmPassword) {
+            showNotification("New passwords do not match", "error");
+            return;
+          }
+
+          if (newPassword.length < 6) {
+            showNotification(
+              "New password must be at least 6 characters",
+              "error"
+            );
+            return;
+          }
+
+          try {
+            const response = await fetch(
+              `${API_BASE_URL}/user/change-password`,
+              {
+                method: "PUT",
+                headers: {
+                  "Content-Type": "application/json",
+                  "x-auth-token": auth.token,
+                },
+                body: JSON.stringify({
+                  currentPassword,
+                  newPassword,
+                }),
+              }
+            );
+
+            const data = await response.json();
+
+            if (data.success) {
+              showNotification("Password updated successfully", "success");
+              document.getElementById("securityForm").reset();
+            } else {
+              showNotification("Error: " + data.message, "error");
+            }
+          } catch (error) {
+            console.error("Error changing password:", error);
+            showNotification("Error changing password", "error");
+          }
+        });
+
+      // Delete account
+      async function deleteAccount() {
+        const auth = checkAuth();
+        if (!auth) return;
+
+        if (
+          !confirm(
+            "⚠️ Are you sure you want to delete your account? This action cannot be undone!"
+          )
+        ) {
+          return;
+        }
+
+        if (
+          !confirm(
+            "🚨 This will permanently delete all your data. Type your password to confirm."
+          )
+        ) {
+          return;
+        }
+
+        try {
+          const response = await fetch(`${API_BASE_URL}/user/delete-account`, {
+            method: "DELETE",
+            headers: {
+              "x-auth-token": auth.token,
+            },
+          });
+
+          const data = await response.json();
+
+          if (data.success) {
+            showNotification("Account deleted successfully", "success");
+            setTimeout(() => {
+              localStorage.removeItem("user");
+              localStorage.removeItem("token");
+              window.location.href = "/";
+            }, 1500);
+          } else {
+            showNotification("Error: " + data.message, "error");
+          }
+        } catch (error) {
+          console.error("Error deleting account:", error);
+          showNotification("Error deleting account", "error");
+        }
+      }
+
+      // Logout
+      function logout() {
+        if (confirm("Are you sure you want to logout?")) {
+          localStorage.removeItem("user");
+          localStorage.removeItem("token");
+          window.location.href = "/";
+        }
+      }
+
+      // Show notification
+      function showNotification(message, type = "info") {
+        const notification = document.createElement("div");
+        const bgColor =
+          type === "error"
+            ? "bg-red-600"
+            : type === "success"
+            ? "bg-green-600"
+            : "bg-blue-600";
+
+        notification.className = `fixed top-4 right-4 ${bgColor} text-white px-6 py-3 rounded-lg shadow-lg z-50`;
+        notification.innerHTML = `
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-${
+                      type === "error"
+                        ? "exclamation-circle"
+                        : type === "success"
+                        ? "check-circle"
+                        : "info-circle"
+                    }"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+
+        document.body.appendChild(notification);
+
+        setTimeout(() => {
+          notification.remove();
+        }, 3000);
+      }
+
+      // Initialize page
+      document.addEventListener("DOMContentLoaded", function () {
+        loadProfile();
+      });
+    </script>
+  </body>
+</html>

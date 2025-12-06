@@ -1,0 +1,85 @@
+/* public/input.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Additional Dashboard Styles */
+.emergency-mode {
+    animation: emergencyPulse 0.5s ease-in-out 3;
+}
+
+@keyframes emergencyPulse {
+    0%, 100% { background-color: transparent; }
+    50% { background-color: rgba(229, 9, 20, 0.1); }
+}
+
+.spider-sense-alert {
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 0.3s ease;
+}
+
+.spider-sense-alert.active {
+    opacity: 1;
+    transform: scale(1);
+    animation: spiderSensePulse 2s infinite;
+}
+
+@keyframes spiderSensePulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(229, 9, 20, 0.7); }
+    50% { box-shadow: 0 0 0 10px rgba(229, 9, 20, 0); }
+}
+
+.user-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: rgba(20, 20, 20, 0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(229, 9, 20, 0.3);
+    border-radius: 8px;
+    padding: 8px 0;
+    min-width: 150px;
+    z-index: 1000;
+}
+
+.user-menu.hidden {
+    display: none;
+}
+
+.user-menu button {
+    width: 100%;
+    text-align: left;
+    padding: 8px 16px;
+    transition: background-color 0.3s ease;
+}
+
+.user-menu button:hover {
+    background: rgba(229, 9, 20, 0.2);
+}
+
+.loading-indicator {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, #e50914, #ff4757, #e50914);
+    background-size: 200% 100%;
+    animation: loadingBar 2s infinite linear;
+    z-index: 9999;
+}
+
+@keyframes loadingBar {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+.dashboard-section {
+    transition: opacity 0.3s ease;
+}
+
+.dashboard-section.hidden {
+    display: none;
+}
